@@ -23,6 +23,7 @@ public class Member {
 		this.age = age;
 		this.phone = phone;
 	}
+	
 
 	public Member(String memberId, String name, String gender, //
 			int age, String phone, String memberGrade, int mileage) {

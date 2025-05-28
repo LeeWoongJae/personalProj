@@ -15,9 +15,15 @@ public class MemberServiceDAO implements MemberService {
 	}
 
 	@Override
-	public boolean modifyMem(Member member) {
+	public boolean modifyMemPwd(Member member) {
 		return dao.updatePwd(member)==1;
 	}
+	
+	@Override
+	public boolean modifyMemMile(Member member) {
+		return dao.updateMile(member)==1;
+	}
+	
 
 	@Override
 	public boolean removeMem(String userId) {

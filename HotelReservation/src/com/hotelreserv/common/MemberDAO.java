@@ -42,7 +42,7 @@ public class MemberDAO extends DAO{
 	
 	// Member_update(비밀번호 변경만)
 	public int updatePwd(Member member) {
-		String sql = "UPDATE TABLE member"+
+		String sql = "UPDATE member"+
 	                 " SET password = ? "+
 	                 "WHERE member_id LIKE ?";
 		
@@ -63,7 +63,46 @@ public class MemberDAO extends DAO{
 		}
 		return 0;
 		
-	}// end of member update
+	}// end of member password update
+	
+	
+	// Member_update(마일리지 변경만)
+		public int updateMile(Member member) {
+			String sql = "UPDATE member "+
+		                 "SET mileage = ? "+
+		                 "WHERE member_id LIKE ?";
+			
+			getConnect();
+			try {
+				conn.setAutoCommit(false); 
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, member.getMileage());
+				pstmt.setString(2, member.getMemberId());
+				int r = pstmt.executeUpdate();
+				conn.commit();
+				
+				if(member.getMileage() > 5000) {
+					sql = "UPDATE member"+
+			                 " SET mem_grade = 'vip' "+
+			                 "WHERE member_id LIKE ?";
+					
+					pstmt.setString(1, member.getMemberId());
+					r = pstmt.executeUpdate();
+					
+				}
+				
+				conn.commit();
+				
+				return r;
+				
+				
+			} catch (Exception e) {}
+			finally {
+				disConnect();
+			}
+			return 0;
+			
+		}// end of member mileage update
 	
 	
 	public List<Member> selectAll(){
@@ -97,8 +136,15 @@ public class MemberDAO extends DAO{
 	
 	// Member_select (단일 조회)
 	public Member select(String memberId){
-		String sql = "SELECT * FROM member "
-				     + "WHERE member_id LIKE ?";
+		String sql = "SELECT member_id , name , gender , age , phone , "
+				+ "CASE WHEN mileage <= 5000 THEN "
+				+ "'normal' "
+				+ "WHEN mileage > 5000 AND "
+				+ "mileage <= 9900 THEN "
+				+ "'vip' "
+				+ "END AS mem_grade, mileage "
+				+ "FROM member "
+				+ "WHERE member_id LIKE ?";
 		//List<Member> list = new ArrayList<>();
 		getConnect();
 		Member searchMem = new Member();
@@ -113,9 +159,9 @@ public class MemberDAO extends DAO{
 				String userGen = rs.getString("gender");
 				int userAge = rs.getInt("age");
 				String userPhone = rs.getString("phone");
-				String userGrd = rs.getString("mem_grade");
+				String memGrade = rs.getString("mem_grade");
 				int userMil = rs.getInt("mileage");
-				searchMem = new Member(userId, userName, userGen, userAge, userPhone, userGrd, userMil);
+				searchMem = new Member(userId, userName, userGen, userAge, userPhone, memGrade , userMil);
 				//list.add(searchMem);
 			}
 		} catch (Exception e) {}
@@ -131,7 +177,7 @@ public class MemberDAO extends DAO{
 	}// end of select
 	
 	public int delete(String memberId) {
-		String sql = "DELETE FROM member"+
+		String sql = "DELETE FROM member "+
 	                 "WHERE member_id LIKE ?";
 		
 		getConnect();
