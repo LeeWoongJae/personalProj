@@ -10,7 +10,7 @@ public class HotelServiceDAO implements HotelService {
 	HotelDAO dao = new HotelDAO();
 
 	@Override
-	public List<HotelRoomInfo> selectRoom() {
+	public List<HotelRoomInfo> roomList() {
 
 		return dao.selectAllRoom();
 	}

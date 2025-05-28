@@ -10,7 +10,11 @@ public class HotelDAO extends DAO {
 	List<HotelRoomInfo> list = new ArrayList<>();
 	
 	public List<HotelRoomInfo> selectAllRoom() {
-		String sql = "SELECT * FROM hotel_room_info";
+		String sql = "SELECT room_num, "
+				+ "CASE WHEN room_state=1 THEN 'O'"
+				+ " ELSE 'x' END AS room_state, "
+				+ "room_mem_info"
+				+ " FROM hotel_room_info";
 		getConnect();
 		HotelRoomInfo searchAllRoom = null;
 		try {

@@ -181,11 +181,13 @@ public class Execute {
 				break;
 			case "2": // 객실현황
 				int space = 0;
-				List<HotelRoomInfo> roomList = hDao.selectAllRoom();
-				System.out.println("----+----+----+----+----+----+----+");
+				List<HotelRoomInfo> roomList = hSvc.roomList();
+				//List<HotelRoomInfo> hSlist = hSvc.roomList();
+				//System.out.println(hSlist);
+				System.out.println("----+----+----+----+----+----+----+----+----+----+");
 				for(int i =0;i<roomList.size();i++) {
 					space++;
-					 System.out.print(roomList.get(i).getRoomNum()+" ");
+					 System.out.print(roomList.get(i).getRoomNum()+" "+roomList.get(i).getRoomState()+" ");
 					 if(space%7==0) {
 						 if(roomList.get(i).getRoomNum()/9000 == 1) {System.out.print("3F");}
 						 if(roomList.get(i).getRoomNum()/2000 == 1) {System.out.print("2F");}
@@ -193,9 +195,9 @@ public class Execute {
 						 System.out.println("\n");
 						 
 					 }
-					 if(space%14==0) {System.out.println("----+----+----+----+----+----+----+");}
+					 if(space%14==0) {System.out.println("----+----+----+----+----+----+----+----+----+----+");}
 				}
-				System.out.println("----+----+----+----+----+----+----+");
+				System.out.println("----+----+----+----+----+----+----+----+----+----+");
 				
 				break;
 			case "3":
