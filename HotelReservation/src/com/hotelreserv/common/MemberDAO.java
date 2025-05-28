@@ -11,20 +11,24 @@ public class MemberDAO extends DAO{
 	
 	// Member_insert
 	public int insert(Member member) {
-		String sql = "INSERT INTO member(member_id , password , name, gender , age , phone)"+
+		String sql = "INSERT INTO member(member_id , password , name, age, gender , phone)"+
 	                 " VALUES(?,?,?,?,?,?)";
 		
 		getConnect();
+		
 		try {
+			conn.setAutoCommit(false); 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, member.getMemberId());
 			pstmt.setString(2, member.getPassword());
 			pstmt.setString(3, member.getName());
-			pstmt.setString(4, member.getGender());
-			pstmt.setInt(5, member.getAge());
+			pstmt.setInt(4, member.getAge());
+			pstmt.setString(5, member.getGender());
 			pstmt.setString(6, member.getPhone());
 			
+			
 			int r = pstmt.executeUpdate();
+			conn.commit();
 			return r;
 			
 			
@@ -40,14 +44,16 @@ public class MemberDAO extends DAO{
 	public int updatePwd(Member member) {
 		String sql = "UPDATE TABLE member"+
 	                 " SET password = ? "+
-	                 "WHERE member_id = ?";
+	                 "WHERE member_id LIKE ?";
 		
 		getConnect();
 		try {
+			conn.setAutoCommit(false); 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, member.getPassword());
 			pstmt.setString(2, member.getMemberId());
 			int r = pstmt.executeUpdate();
+			conn.commit();
 			return r;
 			
 			
@@ -126,13 +132,15 @@ public class MemberDAO extends DAO{
 	
 	public int delete(String memberId) {
 		String sql = "DELETE FROM member"+
-	                 "WHERE member_id = ?";
+	                 "WHERE member_id LIKE ?";
 		
 		getConnect();
 		try {
+			conn.setAutoCommit(false); 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memberId);
 			int r = pstmt.executeUpdate();
+			conn.commit();
 			return r;
 		} catch (Exception e) {}
 		finally {

@@ -18,9 +18,9 @@ public class Execute {
 		boolean inrRun = true;
 		Scanner scn = new Scanner(System.in);
 		while(run) {
-			System.out.println("-----------------------------------------------");
+			System.out.println("--------------------------------------------------");
 			System.out.println("1. 회원 | 2. 객실현황 | 3. 운행버스정보 | 4. 예약 | 5. 종료");
-			System.out.println("===============================================");
+			System.out.println("==================================================");
 			System.out.println("실행하실 메뉴를 입력 >");
 			String menu = scn.nextLine();
 			switch(menu) {
@@ -28,9 +28,9 @@ public class Execute {
 				
 				
 				while(inrRun) {
-					System.out.println("---------------------------------------------------");
+					System.out.println("--------------------------------------------------------");
 					System.out.println("1. 회원가입 | 2. 회원조회 | 3. 정보수정 | 4. 회원탈퇴 | 5. 이전으로 ");
-					System.out.println("===================================================");
+					System.out.println("========================================================");
 					System.out.println("실행하실 메뉴를 입력 >");
 					String inrMenu = scn.nextLine();
 					switch(inrMenu) {
@@ -56,13 +56,6 @@ public class Execute {
 						System.out.println("전화번호를 입력해주세요 >");
 						String phone = scn.nextLine();
 						
-//						newbie.setMemberId(memberId);
-//						newbie.setPassword(password);
-//						newbie.setName(name);
-//						newbie.setGender(gender);
-//						newbie.setAge(age);
-//						newbie.setPhone(phone);
-						
 												
 						if(svc.addMem(new Member(memberId, password, name, age, gender, phone ))) {
 							System.err.println("😊 회원가입이 완료되었습니다. 😊");
@@ -78,17 +71,12 @@ public class Execute {
 						Member result = svc.select(searchId);
 						
 						System.out.println("----------------------------------------------------------");
-						System.out.println("아이디 | 이름  | 성별  | 나이  | 연락처  | 회원등급  | 마일리지");
+						System.out.println(" 아이디 |  이름  |  성별  |  나이  |  연락처  |  회원등급  | 마일리지");
 						System.out.println("==========================================================");
-//						System.out.println(svcMem.getMemberId()+" "+svcMem.getName()+" "+svcMem.getGender()+" "//
-//						                   + svcMem.getAge()+" "+svcMem.getPhone()+" "+ //
-//						                   svcMem.getMileage());
-						
-						
 							
-							System.out.println(result.getMemberId()+" "+result.getName()+" "+result.getGender()+" "//
-					                   + result.getAge()+" "+result.getPhone()+" "+ //
-					                   result.getMemberGrade()+" "+result.getMileage());
+						System.out.println(result.getMemberId()+" "+result.getName()+"  "+result.getGender()+"    "//
+					                   + result.getAge()+"  "+result.getPhone()+"  "+ //
+					                   result.getMemberGrade()+"  "+result.getMileage());
 						
 						break;
 					case "3" : // 회원정보 수정
