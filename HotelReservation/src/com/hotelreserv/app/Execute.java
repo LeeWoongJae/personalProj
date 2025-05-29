@@ -3,9 +3,6 @@ package com.hotelreserv.app;
 
 import java.util.List;
 import java.util.Scanner;
-
-import com.hotelreserv.common.HotelDAO;
-import com.hotelreserv.common.MemberDAO;
 import com.hotelreserv.service.BusInfoService;
 import com.hotelreserv.service.BusServiceDAO;
 import com.hotelreserv.service.HotelService;
@@ -18,7 +15,6 @@ import com.hotelreserv.vo.HotelReservation;
 import com.hotelreserv.vo.HotelRoomInfo;
 import com.hotelreserv.vo.Member;
 
-import oracle.sql.DATE;
 
 public class Execute {
 	public void execute() {
@@ -40,10 +36,10 @@ public class Execute {
 		
 		Scanner scn = new Scanner(System.in);
 		while(run) {
-			System.out.println("-----------[ Welcome to YEDAM HOTEL ]---------------");
-			System.out.println("----------------------------------------------------");
-			System.out.println("| 1. 회원 | 2. 객실현황 | 3. 운행버스정보 | 4. 예약 | 5. 종료 |");
-			System.out.println("====================================================");
+			System.out.println("━━━━━━━━━━━━━━[ Welcome to YEDAM HOTEL ]━━━━━━━━━━━━━━━━");
+			System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+			System.out.println("｜ 1. 회원  ┃ 2. 객실현황  ┃ 3. 운행버스정보  ┃ 4. 예약  ┃ 5.종료 ｜");
+			System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 			System.out.println("실행하실 메뉴를 입력 >");
 			String menu = scn.nextLine();
 			switch(menu) {
@@ -51,9 +47,9 @@ public class Execute {
 				
 				
 				while(inrRunMem) {
-					System.out.println("-----------------------------------------------------");
-					System.out.println("1. 회원가입 | 2. 회원조회 | 3. 정보수정 | 4. 회원탈퇴 | 5. 이전으로 ");
-					System.out.println("=====================================================");
+					System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+					System.out.println("｜ 1. 회원가입 ┃ 2. 회원조회 ┃ 3. 정보수정 ┃ 4. 회원탈퇴 ┃ 5. 이전으로 ｜");
+					System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 					System.out.println("실행하실 메뉴를 입력 >");
 					String inrMenu = scn.nextLine();
 					switch(inrMenu) {
@@ -100,21 +96,21 @@ public class Execute {
 						String searchId = scn.nextLine();
 						Member result = svc.select(searchId);
 						
-						System.out.println("----------------------------------------------------------");
-						System.out.println(" 아이디 |  이름  |  성별  |  나이  |  연락처  |  회원등급  | 마일리지");
-						System.out.println("==========================================================");
+						System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+						System.out.println("｜ 아이디  ┃  이름  ┃   성별   ┃   나이   ┃   연락처   ┃   회원등급  ┃  마일리지｜");
+						System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 							
-						System.out.println(result.getMemberId()+"  "+result.getName()+"    "+result.getGender()+"    "//
-					                   + result.getAge()+"  "+result.getPhone()+"  "+ //
-					                   result.getMemberGrade()+"  "+result.getMileage());
+						System.out.println("┃"+result.getMemberId()+" ┃ "+result.getName()+" ┃  "+result.getGender()+"   ┃   "//
+					                   + result.getAge()+"  ┃  "+result.getPhone()+"  ┃  "+ //
+					                   result.getMemberGrade()+"  ┃  "+result.getMileage());
 						
 						break;
 					case "3" : // 회원정보 수정
 						
 						while(inrRunMemSec) {
-							System.out.println("------------------------------------------");
-							System.out.println("1. 비밀번호 변경 | 2. 마일리지 변경 | 3. 돌아가기"); 
-							System.out.println("==========================================");
+							System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+							System.out.println("｜ 1. 비밀번호 변경 | 2. 마일리지 변경 | 3. 돌아가기 ｜"); 
+							System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 							System.out.println("실행하실 메뉴를 입력 >");
 							inrMenu = scn.nextLine();
 							switch(inrMenu) {
@@ -211,7 +207,7 @@ public class Execute {
 				
 				List<BusInfo> busList = bSvc.selectAllBusList();
 
-				System.out.println("------------------------------------------------");
+				System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 				System.out.println("버스등급        버스번호      운행시작      운행종료  탑승인원");
 				for(int i =0;i<busList.size();i++) {
 
@@ -227,7 +223,7 @@ public class Execute {
 					System.out.println("    "+busList.get(i).getBusFlowChk());
 					
 				}
-				System.out.println("================================================");
+				System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 				
 				break;
 			case "4": // 호텔 예약
