@@ -180,7 +180,7 @@ public class Execute {
 						break;
 					}
 					
-				}
+				} 
 				break;
 			case "2": // 객실현황
 				int space = 0;
