@@ -19,6 +19,13 @@ public class BusReservation {
 		this.busReservTime = busReservTime;
 	}
 	
+	public BusReservation(int busNo, String reservMem, String reservTime) {
+		this.busNo = busNo;
+		this.busReservMem = reservMem;
+		this.busReservTime = reservTime;
+	}
+	
+	
 	//getter , setter
 	public int getBusReservNo() {
 		return busReservNo;
