@@ -44,7 +44,7 @@ public class MemberDAO extends DAO{
 	public int updatePwd(Member member) {
 		String sql = "UPDATE member"+
 	                 " SET password = ? "+
-	                 "WHERE member_id LIKE ?";
+	                 "WHERE member_id = ?";
 		
 		getConnect();
 		try {
@@ -65,12 +65,11 @@ public class MemberDAO extends DAO{
 		
 	}// end of member password update
 	
-	
 	// Member_update(마일리지 변경만)
 		public int updateMile(Member member) {
 			String sql = "UPDATE member "+
 		                 "SET mileage = ? "+
-		                 "WHERE member_id LIKE ?";
+		                 "WHERE member_id = ?";
 			
 			getConnect();
 			try {
@@ -81,29 +80,13 @@ public class MemberDAO extends DAO{
 				int r = pstmt.executeUpdate();
 				conn.commit();
 				
-				if(member.getMileage() > 5000) {
-					sql = "UPDATE member"+
-			                 " SET mem_grade = 'vip' "+
-			                 "WHERE member_id LIKE ?";
-					
-					pstmt.setString(1, member.getMemberId());
-					r = pstmt.executeUpdate();
-					
-				}
-				
-				conn.commit();
-				
 				return r;
-				
-				
 			} catch (Exception e) {}
 			finally {
 				disConnect();
 			}
 			return 0;
-			
 		}// end of member mileage update
-	
 	
 	public List<Member> selectAll(){
 		String sql = "SELECT * FROM member";
@@ -127,24 +110,16 @@ public class MemberDAO extends DAO{
 		finally {
 			disConnect();
 		}
-		
 		return list;
-		
 	}
-	
-	
 	
 	// Member_select (단일 조회)
 	public Member select(String memberId){
-		String sql = "SELECT member_id , name , gender , age , phone , "
-				+ "CASE WHEN mileage <= 5000 THEN "
-				+ "'normal' "
-				+ "WHEN mileage > 5000 AND "
-				+ "mileage <= 9900 THEN "
-				+ "'vip' "
-				+ "END AS mem_grade, mileage "
-				+ "FROM member "
-				+ "WHERE member_id LIKE ?";
+		String sql = "SELECT m.member_id AS member_id, m.name AS name, m.gender AS gender, "
+				+ "  m.age AS age, m.phone AS phone, g.grade_info AS mem_grade, m.mileage AS mileage "
+				+ "  FROM member m JOIN member_grade_info g "
+				+ "  ON m.mileage BETWEEN g.low_mile AND g.high_mile "
+				+ "  WHERE m.member_id = ?";
 		//List<Member> list = new ArrayList<>();
 		getConnect();
 		Member searchMem = new Member();
@@ -153,7 +128,7 @@ public class MemberDAO extends DAO{
 			pstmt.setString(1, memberId);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				;
+				
 				String userId = rs.getString("member_id");
 				String userName = rs.getString("name");
 				String userGen = rs.getString("gender");
@@ -169,22 +144,21 @@ public class MemberDAO extends DAO{
 			disConnect();
 		}
 		
-		
 		return searchMem;
-		
-		
-		
+	
 	}// end of select
 	
-	public int delete(String memberId) {
+	public int delete(Member member) {
 		String sql = "DELETE FROM member "+
-	                 "WHERE member_id LIKE ?";
+	                 "WHERE member_id = ? "
+	                 + "AND password = ? ";
 		
 		getConnect();
 		try {
 			conn.setAutoCommit(false); 
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, memberId);
+			pstmt.setString(1, member.getMemberId());
+			pstmt.setString(2, member.getPassword());
 			int r = pstmt.executeUpdate();
 			conn.commit();
 			return r;
@@ -195,10 +169,6 @@ public class MemberDAO extends DAO{
 		return 0;
 		
 	}// end of member delete
-	
-	
-	
-	
 	
 	
 }

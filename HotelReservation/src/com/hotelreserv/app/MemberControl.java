@@ -11,15 +11,16 @@ public class MemberControl {
 	Scanner scn = new Scanner(System.in);
 
 	public void execute() {
-		boolean inrRunMem = true;
-		boolean inrRunMemSec = true;
+		boolean inrRunMem = true; // 첫 while 문을 시작
+		
 		while (inrRunMem) {
+			boolean inrRunMemSec = true; // 두번째 while문을 시작하게 만듬
 			System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
 			System.out.println("｜ 1. 회원가입 ┃ 2. 회원조회 ┃ 3. 정보수정 ┃ 4. 회원탈퇴 ┃ 5. 이전으로 ｜");
 			System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 			System.out.println("실행하실 메뉴를 입력 >");
-			String inrMenu = scn.nextLine();
-			switch (inrMenu) {
+			String inrFirstMenu = scn.nextLine();
+			switch (inrFirstMenu) {
 			case "1": // 회원 가입
 
 				System.out.println("😊 환영합니다. 😊\n회원가입을 시작합니다.");
@@ -63,16 +64,20 @@ public class MemberControl {
 				System.out.println("조회하실 아이디를 입력해주세요. >");
 				String searchId = scn.nextLine();
 				Member result = svc.select(searchId);
+				if(result.getMemberId() != null) {
+					System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+					System.out.println("｜ 아이디  ┃  이름  ┃   성별   ┃   나이   ┃   연락처   ┃   회원등급  ┃  마일리지｜");
+					System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 
-				System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-				System.out.println("｜ 아이디  ┃  이름  ┃   성별   ┃   나이   ┃   연락처   ┃   회원등급  ┃  마일리지｜");
-				System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+					System.out.println(
+							"┃" + result.getMemberId() + " ┃ " + result.getName() + " ┃  " + result.getGender() + "   ┃   "//
+									+ result.getAge() + "  ┃  " + result.getPhone() + "  ┃  " + //
+									result.getMemberGrade() + "  ┃  " + result.getMileage());
 
-				System.out.println(
-						"┃" + result.getMemberId() + " ┃ " + result.getName() + " ┃  " + result.getGender() + "   ┃   "//
-								+ result.getAge() + "  ┃  " + result.getPhone() + "  ┃  " + //
-								result.getMemberGrade() + "  ┃  " + result.getMileage());
-
+				}else {
+					System.err.println("존재하지 않는 계정입니다.\n확인해 주시고 다시 시도해주세요");
+				}
+				
 				break;
 			case "3": // 회원정보 수정
 
@@ -81,9 +86,9 @@ public class MemberControl {
 					System.out.println("｜ 1. 비밀번호 변경 | 2. 마일리지 변경 | 3. 돌아가기 ｜");
 					System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
 					System.out.println("실행하실 메뉴를 입력 >");
-					inrMenu = scn.nextLine();
-					switch (inrMenu) {
-					case "1":
+					String inrSecMenu = scn.nextLine();
+					switch (inrSecMenu) {
+					case "1": // 비밀번호 변경
 
 						System.out.println("비밀번호의 수정만 가능합니다.");
 
@@ -103,7 +108,7 @@ public class MemberControl {
 							System.err.println("수정 취소되었습니다. 다시 확인해 주세요.");
 						}
 						break;
-					case "2":
+					case "2": // 마일리지 수정
 						System.out.println("마일리지의 수정만 가능합니다.");
 						System.out.println("아이디를 입력해주세요.");
 						System.out.print("[아이디] ");
@@ -126,22 +131,29 @@ public class MemberControl {
 
 						break;
 
-					case "3":
+					case "3": // 돌아가기
 						inrRunMemSec = false;
 						break;
 					}
-				}
+				}// end of 회원정보 수정
+				
 				break;
 			case "4": // 회원탈퇴
-				System.out.println("😔 회원탈퇴를 진행합니다. 😔\n" + "탈퇴하실 아이디를 입력해주세요.");
+				System.out.println("😔 회원탈퇴를 진행합니다. 😔\n" + "탈퇴하실 아이디와 비밀번호를 입력해주세요.");
 				System.out.print("[아이디] ");
 				String delUserId = scn.nextLine();
-
-				svc.removeMem(delUserId);
-
-				System.out.println("이용해주셔서 감사합니다. 😀");
+				
+				System.out.print("[비밀번호] ");
+				String delUserPwd = scn.nextLine();
+				
+				Member memberDel = new Member();
+				memberDel.setMemberId(delUserId);
+				memberDel.setPassword(delUserPwd);
+				
+				svc.removeMem(memberDel);
+				System.err.println("이용해주셔서 감사합니다. 😀");
+				
 				break;
-
 			case "5":
 				inrRunMem = false;
 				System.err.println("이전 페이지로 돌아갑니다.");
@@ -150,4 +162,4 @@ public class MemberControl {
 
 		}
 	}
-}
+}// end of class

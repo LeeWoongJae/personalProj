@@ -12,19 +12,18 @@ public class HotelServiceDAO implements HotelService {
 
 	@Override
 	public List<HotelRoomInfo> roomList() {
-
 		return dao.selectAllRoom();
-		
 	}
 
 	@Override
 	public int hotelRoomReserv(HotelReservation roomReserv) {
 		return dao.roomRsv(roomReserv);
-		
 	}
-	
-	
 
+	@Override
+	public int hotelRoomReservCancle(HotelReservation cancleSelect) {
+		return dao.cancleRsvRoom(cancleSelect);
+	}
 	
 	
 }

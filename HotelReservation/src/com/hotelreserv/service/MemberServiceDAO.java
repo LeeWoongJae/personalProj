@@ -26,8 +26,8 @@ public class MemberServiceDAO implements MemberService {
 	
 
 	@Override
-	public boolean removeMem(String userId) {
-		return dao.delete(userId)==1;
+	public boolean removeMem(Member member) {
+		return dao.delete(member)==1;
 		
 	}
 

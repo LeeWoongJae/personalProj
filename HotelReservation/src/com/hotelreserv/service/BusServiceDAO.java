@@ -15,7 +15,7 @@ public class BusServiceDAO implements BusInfoService {
 	public List<BusInfo> selectAllBusList() {
 		// 버스 정보
 		return dao.operBusAllList();
-	}
+	}//
 
 	@Override
 	public boolean insertReserve(BusReservation reservation) {
@@ -29,11 +29,8 @@ public class BusServiceDAO implements BusInfoService {
 			return true;
 			
 		} // end of if
-		
 		return  false;
-	}
-
-	
+	}//
 
 	@Override
 	public boolean deleteReserve(BusReservation reservation) {
@@ -41,13 +38,14 @@ public class BusServiceDAO implements BusInfoService {
 		// 삭제하려는 버스번호의 예약리스트를 저장 (예약리스트에 1건이상 가지고 있다면 가져와서 처리)
 		for(BusReservation reserv : selectBusRsvList) {
 			if(reservation.getBusNo()==reserv.getBusNo()) {
-
+				reservation.setBusNo(reserv.getBusNo());
+				reservation.setBusReservMem(reserv.getBusReservMem());
 				dao.busRsvDel(reservation);
 				return true;
 			}
 		}
 		return false;
-	}
+	}//
 
 	@Override
 	public BusReservation selectOne(BusReservation reservation) {
@@ -55,13 +53,15 @@ public class BusServiceDAO implements BusInfoService {
 		// (한건만 있으면 상관없는데 같은 버스번호로 다른 사용자가 예약한건까지 반환)
 		
 		return dao.selectOne(reservation);
-	}
+	}//
 
 	@Override
 	public List<BusReservation> reservAllList(BusReservation reservation) {
-		// 예약 목록 전체?
-		// list 반환
+		// 예약 목록 전체
+		// 버스번호를 넣으면 해당 버스번호를 가진 예약리스트 반환
+		// 멤버 아이디를 넣으면 해당 아이디로 넣은 예약 리스트 반환
+		// list 반환 하게끔 만들어야~
 		return dao.rsvAllList(reservation);
-	}
+	}//
 
-}
+}// end of BusServiceDAO

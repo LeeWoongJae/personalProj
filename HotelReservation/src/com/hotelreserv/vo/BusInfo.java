@@ -7,20 +7,18 @@ public class BusInfo {
 	private int busNum;
 	private String busGrd;
 	private String busOperStart;
-	private String busOperNorEnd;
-	private String busOperVipEnd;
+	private String busOperEnd;
 	private int busFlowChk;
 	
 	//Constructor
 	public BusInfo() {}
 	public BusInfo(int busNum, String busGrd, String busOperStart,//
-			String busOperNorEnd, String busOperVipEnd, int busFlowChk) {
+			String busOperEnd, int busFlowChk) {
 		
 		this.busNum = busNum;
 		this.busGrd = busGrd;
 		this.busOperStart = busOperStart;
-		this.busOperNorEnd = busOperNorEnd;
-		this.busOperVipEnd = busOperVipEnd;
+		this.busOperEnd = busOperEnd;
 		this.busFlowChk = busFlowChk;
 	}
 	
@@ -43,17 +41,11 @@ public class BusInfo {
 	public void setBusOperStart(String busOperStart) {
 		this.busOperStart = busOperStart;
 	}
-	public String getBusOperNorEnd() {
-		return busOperNorEnd;
+	public String getBusOperEnd() {
+		return busOperEnd;
 	}
-	public void setBusOperNorEnd(String busOperNorEnd) {
-		this.busOperNorEnd = busOperNorEnd;
-	}
-	public String getBusOperVipEnd() {
-		return busOperVipEnd;
-	}
-	public void setBusOperVipEnd(String busOperVipEnd) {
-		this.busOperVipEnd = busOperVipEnd;
+	public void setBusOperNorEnd(String busOperEnd) {
+		this.busOperEnd = busOperEnd;
 	}
 	public int getBusFlowChk() {
 		return busFlowChk;
@@ -66,9 +58,10 @@ public class BusInfo {
 	@Override
 	public String toString() {
 		return "BusInfo [busNum=" + busNum + ", busGrd=" + busGrd + ", busOperStart=" + busOperStart
-				+ ", busOperNorEnd=" + busOperNorEnd + ", busOperVipEnd=" + busOperVipEnd + ", busFlowChk=" + busFlowChk
-				+ "]";
+				+ ", busOperEnd="+busOperEnd + ", busFlowChk=" + busFlowChk + "]";
 	}
+	
+	
 	
 	
 	
