@@ -34,17 +34,7 @@ public class BusServiceDAO implements BusInfoService {
 
 	@Override
 	public boolean deleteReserve(BusReservation reservation) {
-		List<BusReservation> selectBusRsvList = dao.selectRsvList(reservation);
-		// 삭제하려는 버스번호의 예약리스트를 저장 (예약리스트에 1건이상 가지고 있다면 가져와서 처리)
-		for(BusReservation reserv : selectBusRsvList) {
-			if(reservation.getBusNo()==reserv.getBusNo()) {
-				reservation.setBusNo(reserv.getBusNo());
-				reservation.setBusReservMem(reserv.getBusReservMem());
-				dao.busRsvDel(reservation);
-				return true;
-			}
-		}
-		return false;
+		return dao.busRsvDel(reservation);
 	}//
 
 	@Override
