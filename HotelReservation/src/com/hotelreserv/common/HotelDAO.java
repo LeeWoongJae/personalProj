@@ -41,6 +41,41 @@ public class HotelDAO extends DAO {
 		
 	}// end of selectAllRoom
 	
+	public HotelRoomInfo selectDetailInfo(int detailNum) {
+		HotelRoomInfo detailInfo = null;
+		String sql = "SELECT i.room_num AS room_num, i.room_mem_info AS room_mem_info, "
+				+ "(case when i.room_state = 0 then '이용중' else '이용가능' end) as room_state, "
+				+ "r.reserv_room_start AS reserv_room_start, r.reserv_room_end AS reserv_room_end "
+				+ "FROM hotel_room_info i "
+				+ "JOIN "
+				+ "hotel_reservation r "
+				+ "ON (i.room_mem_info = r.reserv_member) "
+				+ "WHERE i.room_num = ? "
+				+ "ORDER BY r.reserv_no";
+		getConnect();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, detailNum);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int roomNo = rs.getInt("room_num");
+				String roomMem = rs.getString("room_mem_info");
+				String roomStat = rs.getString("room_state");
+				String rsvStart = rs.getString("reserv_room_start");
+				String rsvEnd = rs.getString("reserv_room_end");
+				
+				detailInfo = new HotelRoomInfo(roomNo, roomStat, roomMem, rsvStart, rsvEnd);
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			disConnect();
+		}
+		return detailInfo;
+		
+	}
+	
 	// 예약
 	public int roomRsv(HotelReservation roomselect) {
 		String sql = "SELECT * FROM hotel_room_info "

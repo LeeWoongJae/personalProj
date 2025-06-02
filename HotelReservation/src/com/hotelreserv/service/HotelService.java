@@ -9,4 +9,7 @@ public interface HotelService {
 	public List<HotelRoomInfo> roomList(); // 룸 전체 정보
 	public int hotelRoomReserv(HotelReservation roomReserv); // 객실예약
 	public int hotelRoomReservCancle(HotelReservation roomselect); // 객실예약취소
+	
+	public HotelRoomInfo roomDetailInfo(int selectRoomNum); // 객실 선택시 디테일
+	
  }

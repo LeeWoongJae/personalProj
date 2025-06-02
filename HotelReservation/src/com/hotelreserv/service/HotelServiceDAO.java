@@ -24,6 +24,13 @@ public class HotelServiceDAO implements HotelService {
 	public int hotelRoomReservCancle(HotelReservation cancleSelect) {
 		return dao.cancleRsvRoom(cancleSelect);
 	}
+
+	@Override
+	public HotelRoomInfo roomDetailInfo(int detailInfo) {
+		
+		return dao.selectDetailInfo(detailInfo);
+	}
+
 	
 	
 }

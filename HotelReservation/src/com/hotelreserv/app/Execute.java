@@ -212,8 +212,19 @@ public class Execute {
 				break;
 
 			case "2": // 객실현황
+				HotelService roomDetailInfo = new HotelServiceDAO();
 				
 				roomStatChk();
+				System.out.println("자세히 알고 싶은 객실 번호를 입력해주세요.");
+				int selectRoomNum = Integer.parseInt(scn.nextLine());
+				
+				HotelRoomInfo detail = roomDetailInfo.roomDetailInfo(selectRoomNum);
+				System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+				System.out.println("｜  번호 ┃ 상태 ┃  아이디  ┃        시작일         ┃       종료일      ｜");
+				System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
+				System.out.println("  "+detail.getRoomNum()+" ┃ "+detail.getRoomState()+" ┃ "+ //
+						detail.getRoomMemInfo()+" ┃ "+detail.getRoomRsvStart()+" ┃ "+ //
+						detail.getRoomRsvEnd()); 
 				break;
 
 			case "3": // 운행정보
